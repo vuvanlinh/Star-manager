@@ -71,11 +71,16 @@ public class StarController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView editStar(Star book) {
-        ModelAndView modelAndView = new ModelAndView("edit");
-        starService.save(book);
-        modelAndView.addObject("message", "Star was update succesfull");
-        return modelAndView;
+    public ModelAndView editStar(@Validated Star star,BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()) {
+            ModelAndView modelAndView = new ModelAndView("edit");
+            return modelAndView;
+        }else {
+            ModelAndView modelAndView = new ModelAndView("edit");
+            starService.save(star);
+            modelAndView.addObject("message", "Star was update succesfull");
+            return modelAndView;
+        }
     }
 
     @GetMapping("/delete/{id}")
