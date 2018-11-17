@@ -9,7 +9,7 @@ public interface StarService {
 
     Star findById(int id);
 
-    void Save(Star star);
+    void save(Star star);
 
     void remove(int id);
 

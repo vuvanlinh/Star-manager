@@ -3,6 +3,8 @@ package will.starmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import will.starmanager.model.Star;
@@ -27,5 +29,14 @@ public class StarController {
         modelAndView.addObject("star", new Star());
         return modelAndView;
     }
+
+    @PostMapping("/create")
+    public ModelAndView createNewBook(@ModelAttribute("star") Star star) {
+            ModelAndView modelAndView = new ModelAndView("create");
+            starService.save(star);
+            modelAndView.addObject("message", "New star created successful");
+            modelAndView.addObject("book", new Star());
+            return modelAndView;
+        }
 
 }

@@ -25,7 +25,7 @@ public class StarServiceImpl implements StarService {
     }
 
     @Override
-    public void Save(Star star) {
+    public void save(Star star) {
         starRepository.save(star);
     }
 

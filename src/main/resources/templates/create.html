@@ -9,7 +9,9 @@
 
     <h2>Create a star to manage</h2>
     <hr>
-
+    <th:block th:if="message">
+        <a style="color: darkmagenta" th:text="${message}"></a>
+    </th:block>
     <form action="/create" method="post" th:object="${star}">
         <table>
             <tr>
