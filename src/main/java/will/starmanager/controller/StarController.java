@@ -51,7 +51,23 @@ public class StarController {
     @GetMapping("/view/{id}")
     public ModelAndView showViewPage(@PathVariable int id) {
         ModelAndView modelAndView = new ModelAndView("view");
-        modelAndView.addObject("star",starService.findById(id));
+        modelAndView.addObject("star", starService.findById(id));
+        return modelAndView;
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView showEditForm(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("edit");
+        modelAndView.addObject("star", starService.findById(id));
+        return modelAndView;
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView editStar(Star book) {
+        ModelAndView modelAndView = new ModelAndView("edit");
+        starService.save(book);
+        modelAndView.addObject("message", "Star was update succesfull");
         return modelAndView;
     }
 }
+

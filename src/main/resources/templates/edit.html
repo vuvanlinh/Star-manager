@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit star infomation</title>
+</head>
+<body>
+<div align="center">
+    <h2>Edit star infomation</h2>
+    <hr>
+    <th:block th:if="message">
+    <a style="color: darkmagenta" th:text="${message}"></a>
+    </th:block><br/>
+    <form th:action="@{/edit}" method="post" th:object="${star}">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Star type:</td>
+                <td><input type="text" th:field="*{type}"></td>
+            </tr>
+            <tr>
+                <td>Galaxy:</td>
+                <td><input type="text" th:field="*{galaxy}"></td>
+            </tr>
+            <tr>
+                <td>Luminosity:</td>
+                <td><input type="text" th:field="*{luminosity}"></td>
+            </tr>
+            <tr>
+                <td>Distance to Sun:</td>
+                <td><input type="text" th:field="*{distance}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Update star"></td>
+            </tr>
+        </table><br/>
+
+        <a th:href="@{/}">Back to list</a>
+    </form>
+</div>
+
+</body>
+</html>
