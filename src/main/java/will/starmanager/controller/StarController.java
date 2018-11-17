@@ -69,5 +69,27 @@ public class StarController {
         modelAndView.addObject("message", "Star was update succesfull");
         return modelAndView;
     }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView showDeletePage(@PathVariable int id){
+        ModelAndView modelAndView = new ModelAndView("delete");
+        modelAndView.addObject("star", starService.findById(id));
+        return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView deleteBook(@RequestParam int id, Star star) {
+        star = starService.findById(id);
+        if (star != null) {
+            starService.remove(id);
+            ModelAndView modelAndView = new ModelAndView("delete");
+            modelAndView.addObject("message", "Delete star successful");
+            return modelAndView;
+        } else {
+            ModelAndView modelAndView = new ModelAndView("delete");
+            modelAndView.addObject("message", "Delete star failed");
+            return modelAndView;
+        }
+    }
 }
 
