@@ -5,8 +5,46 @@
     <title>Star list</title>
 </head>
 <body>
-<h1>Star list</h1>
-<hr>
-<a th:href="@{/create}">Create new Star</a>
+<div align="center">
+    <h1>Star list</h1>
+    <hr>
+    <form>
+        <div align="center">
+            <input type="text" value="star name..." name="search">
+            <input type="submit" value="Search star">
+        </div>
+    </form><br/><br/>
+
+    <table border="1" cellpadding="2" th:object="${stars}">
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Type</td>
+            <td>Galaxy</td>
+            <td>Luminosity</td>
+            <td>Distance to Sun</td>
+        </tr>
+        <th:block th:each="star : ${stars}">
+            <tr>
+                <td th:text="${star.id}"></td>
+                <td th:text="${star.name}"></td>
+                <td th:text="${star.type}"></td>
+                <td th:text="${star.galaxy}"></td>
+                <td th:text="${star.luminosity}"></td>
+                <td th:text="${star.distance}"></td>
+                <td><a th:href="@{/view/__${star.id}__}">View</a></td>
+                <td><a th:href="@{/edit/__${star.id}__}">Edit</a></td>
+                <td><a th:href="@{/delete/__${star.id}__}">Delete</a></td>
+            </tr>
+        </th:block>
+    </table><br/>
+    <a th:href="@{/create}">Create new star</a><br/>
+
+    <div>
+        <a th:href="@{'/'(page=${stars.number - 1})}" th:if="${stars.hasPrevious()}">Previous</a>
+        <span th:text="${stars.number + 1}"></span>/<span th:text="${stars.totalPages}"></span>
+        <a th:href="@{'/'(page=${stars.number + 1})}" th:if="${stars.hasNext()}">Next</a>
+    </div>
+</div>
 </body>
 </html>

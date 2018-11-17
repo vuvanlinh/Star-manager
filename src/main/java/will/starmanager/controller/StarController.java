@@ -1,14 +1,16 @@
 package will.starmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import will.starmanager.model.Star;
 import will.starmanager.service.StarService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -18,8 +20,15 @@ public class StarController {
     private StarService starService;
 
     @GetMapping("/")
-    public ModelAndView showStarList() {
+    public ModelAndView showStarList(@RequestParam("search") Optional<String> search, @PageableDefault(size = 10) Pageable pageable) {
+        Page<Star> stars;
+        if (search.isPresent()) {
+            stars = starService.findAllByNameContaining(search.get(), pageable);
+        } else {
+            stars = starService.findAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("view");
+        modelAndView.addObject("stars", stars);
         return modelAndView;
     }
 
