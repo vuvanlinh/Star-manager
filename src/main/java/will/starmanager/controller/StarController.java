@@ -27,7 +27,7 @@ public class StarController {
         } else {
             stars = starService.findAll(pageable);
         }
-        ModelAndView modelAndView = new ModelAndView("view");
+        ModelAndView modelAndView = new ModelAndView("list");
         modelAndView.addObject("stars", stars);
         return modelAndView;
     }
@@ -41,11 +41,17 @@ public class StarController {
 
     @PostMapping("/create")
     public ModelAndView createNewBook(@ModelAttribute("star") Star star) {
-            ModelAndView modelAndView = new ModelAndView("create");
-            starService.save(star);
-            modelAndView.addObject("message", "New star created successful");
-            modelAndView.addObject("book", new Star());
-            return modelAndView;
-        }
+        ModelAndView modelAndView = new ModelAndView("create");
+        starService.save(star);
+        modelAndView.addObject("message", "New star created successful");
+        modelAndView.addObject("book", new Star());
+        return modelAndView;
+    }
 
+    @GetMapping("/view/{id}")
+    public ModelAndView showViewPage(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView("view");
+        modelAndView.addObject("star",starService.findById(id));
+        return modelAndView;
+    }
 }
