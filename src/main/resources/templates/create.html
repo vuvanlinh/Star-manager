@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create star</title>
+</head>
+<body>
+<div align="center">
+
+    <h2>Create a star to manage</h2>
+    <hr>
+
+    <form action="/create" method="post" th:object="${star}">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>Star type:</td>
+                <td><input type="text" th:field="*{type}"></td>
+            </tr>
+            <tr>
+                <td>Galaxy:</td>
+                <td><input type="number" th:field="*{galaxy}"></td>
+            </tr>
+            <tr>
+                <td>Luminosity:</td>
+                <td><input type="number" th:field="*{luminosity}"></td>
+            </tr>
+            <tr>
+                <td>Distance to Sun:</td>
+                <td><input type="number" th:field="*{distance}"></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Create new star">
+                </td>
+            </tr>
+        </table>
+        <a th:href="@{/}">Back to star list</a>
+    </form>
+</div>
+
+</body>
+</html>

@@ -3,10 +3,12 @@ package will.starmanager.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import will.starmanager.model.Star;
 import will.starmanager.repository.StarRepository;
 import will.starmanager.service.StarService;
 
+@Service
 public class StarServiceImpl implements StarService {
 
     @Autowired
