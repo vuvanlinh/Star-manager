@@ -38,7 +38,7 @@
             </tr>
         </th:block>
     </table><br/>
-    <a th:href="@{/create}">Create new star</a><br/>
+    <a th:href="@{/create}">Add star</a><br/>
 
     <div>
         <a th:href="@{'/'(page=${stars.number - 1})}" th:if="${stars.hasPrevious()}">Previous</a>

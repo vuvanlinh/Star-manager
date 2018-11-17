@@ -1,23 +1,31 @@
 package will.starmanager.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "stars")
 public class Star {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private int id;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String type;
 
+    @NotEmpty
     private String galaxy;
 
+    @Min(0)
     private double luminosity;
 
+    @Min(0)
     private double distance;
 
     public int getId() {

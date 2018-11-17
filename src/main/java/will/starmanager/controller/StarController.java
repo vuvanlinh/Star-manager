@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import will.starmanager.model.Star;
@@ -40,12 +43,17 @@ public class StarController {
     }
 
     @PostMapping("/create")
-    public ModelAndView createNewBook(@ModelAttribute("star") Star star) {
-        ModelAndView modelAndView = new ModelAndView("create");
-        starService.save(star);
-        modelAndView.addObject("message", "New star created successful");
-        modelAndView.addObject("book", new Star());
-        return modelAndView;
+    public ModelAndView createNewBook(@Validated @ModelAttribute("star") Star star, BindingResult bindingResult) {
+        if (bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("create");
+            return modelAndView;
+        }else {
+            ModelAndView modelAndView = new ModelAndView("create");
+            starService.save(star);
+            modelAndView.addObject("message", "New star created successful");
+            modelAndView.addObject("book", new Star());
+            return modelAndView;
+        }
     }
 
     @GetMapping("/view/{id}")
